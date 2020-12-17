@@ -1,3 +1,4 @@
+# for clarification I wasn't able to access this utils file in my techinal_report.ipynb. I used import utils as util. Then in my functions wrote util.load, or util.clean_class, but I kept getting an error I couldn't solve. So I am showing you that I had everything set up here also.
 
 import numpy as np
 import matplotlib as plt
@@ -5,9 +6,7 @@ import pandas as pd
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-def output(df):
-    print('hello')
-
+# cleans mDevice column
 def clean_class(df):
     ser = df["mDevice"].copy()
     for i in range(0, len(ser), 1):
@@ -23,7 +22,7 @@ def clean_class(df):
 
     df["mDevice"] = ser
 
-    
+# calculates t_computed for weekend comparison, and gives me mean volumes for Sunday and Saturday
 def weekendGroups(df):
     weekend_groups = df.groupby("DofW")
     saturday_ser = weekend_groups.get_group("S")
@@ -36,6 +35,7 @@ def weekendGroups(df):
     t_computed, p_val = stats.ttest_ind(saturday_ser["DB"], sunday_ser["DB"])
     return t_computed, saturday_mean, sunday_mean
 
+# Gives me mean stress values and t_computed for stress test
 def stressGroups(df):
     stress_groups = df.groupby("Stress")
     stress_9_ser = stress_groups.get_group(9)
@@ -63,6 +63,7 @@ def stressGroups(df):
     t_computed, p_val = stats.ttest_ind(stress_9_ser["DB"], stress_1_ser["DB"])
     return t_computed, stress_9_mean, stress_8_mean, stress_7_mean, stress_6_mean, stress_5_mean, stress_4_mean, stress_3_mean, stress_2_mean, stress_1_mean
 
+#organizes by music type and gives me t_computed
 def musicGroups(df):
     #organizing data by music type
     mType_groups = df.groupby("mType")
@@ -86,7 +87,7 @@ def musicGroups(df):
     t_computed, p_val = stats.ttest_ind(randb_ser["DB"], rap_ser["DB"])
     return t_computed, randb_mean, rap_mean, pop_mean, classical_mean, indie_mean, randb_ser, rap_ser, classical_ser, pop_ser, indie_ser
 
-
+# gives me average music volume for weekend vs weekday, calculates t_computed
 def weekdayWeekend(df):
     # getting each individual day of the week
     week_groups = df.groupby("DofW")
@@ -115,6 +116,7 @@ def weekdayWeekend(df):
     t_computed, p_val = stats.ttest_ind(weekend, weekdays)
     return t_computed
 
+# graphs sunday vs saturday
 def sunSat_plot(saturday_mean, sunday_mean, df):
     plt.figure()
 
@@ -135,7 +137,8 @@ def sunSat_plot(saturday_mean, sunday_mean, df):
 
     plt.grid(True)
     plt.show()
-    
+
+graphs scatter of music volumes per day
 def volumeScatter(df):
     # scatter plot shows ranges of music volumes at different stress levels
     plt.figure()
@@ -144,7 +147,7 @@ def volumeScatter(df):
     plt.ylabel('Music volume')
     plt.show()
     
-    
+# bar plot of stress music average  
 def stressBar(stress1, stress2, stress3, stress4, stress5, stress6, stress7, stress8, stress9, df):
     plt.figure()
 
