@@ -1,4 +1,3 @@
-# for clarification I wasn't able to access this utils file in my techinal_report.ipynb. I used import utils as util. Then in my functions wrote util.load, or util.clean_class, but I kept getting an error I couldn't solve. So I am showing you that I had everything set up here also.
 
 import numpy as np
 import matplotlib as plt
