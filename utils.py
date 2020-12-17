@@ -3,10 +3,11 @@
 import numpy as np
 import matplotlib as plt
 import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
 
-def load(filename):
-    df = pd.read_csv(filename)
-    return df
+def output(df):
+    print('hello')
 
 def clean_class(df):
     ser = df["mDevice"].copy()
@@ -22,11 +23,7 @@ def clean_class(df):
             ser[i] = np.NaN
 
     df["mDevice"] = ser
-    
-def write_csv(fname, df):
-    out_file = open(fname, "w")
-    df.to_csv(fname)
-    out_file.close()
+
     
 def weekendGroups(df):
     weekend_groups = df.groupby("DofW")
@@ -88,7 +85,7 @@ def musicGroups(df):
     print(len(rap_ser))
 
     t_computed, p_val = stats.ttest_ind(randb_ser["DB"], rap_ser["DB"])
-    return t_computed, randb_mean, rap_mean, pop_mean, classical_mean, indie_mean
+    return t_computed, randb_mean, rap_mean, pop_mean, classical_mean, indie_mean, randb_ser, rap_ser, classical_ser, pop_ser, indie_ser
 
 
 def weekdayWeekend(df):
@@ -200,7 +197,7 @@ def musicType_plot(rap, randb, classical, indie, pop, df):
     plt.grid(True)
     plt.show()
     
-def musicCategory_plt(df):
+def musicCategory_plt(randb_ser, rap_ser, classical_ser, pop_ser, indie_ser,df):
     plt.figure()
 
     # define x and y values
